@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+    <head>
+        <title>lttstore.com</title>
+        <meta charset="utf-8">
+        <style>
+            body {
+                margin: 0;
+            }
+
+            #ltt, #store, #gaming {
+                background-image: url('linuk.jpg');
+                height: 100vh;
+                width: 100vw;
+                position: fixed;
+            }
+
+            #ltt {
+                z-index: 1;
+            }
+
+            #store {
+                z-index: 0;
+            }
+
+            #gaming {
+                z-index: 2;
+                background-repeat: no-repeat;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="ltt"></div>
+        <div id="store"></div>
+        <div id="gaming"></div>
+        <script>
+            // there wasn't even an attempt at maintaining this
+
+            const dot = document.getElementById("ltt");
+            const com = document.getElementById("store");
+            const gaming = document.getElementById("gaming");
+            const techtipping = new Audio('techtip.mp3');
+
+            function techtips(i = 100, posx = Math.floor(Math.random() * 101), posy = Math.floor(Math.random() * 101), opacity = 25, gamingopacity= 100) {
+                setTimeout(function() {
+                    techtipping.play(); // lol
+                    
+                    com.style.backgroundPosition = posx + "% " + posy + "%";
+                    dot.style.opacity = opacity + "%";
+                    gaming.style.opacity = gamingopacity + "%";
+
+                    if (i > 1) {
+                        dot.style.backgroundSize = i + "vw " + i + "vh";
+                        dot.style.backgroundPosition = posx + "% " + posy + "%";
+                        gaming.style.backgroundSize = i + "vw " + i + "vh";
+                        gaming.style.backgroundPosition = posx + "% " + posy + "%";
+                        com.style.backgroundSize = (100 * i) + "vw " + (100 * i) + "vh";
+                    }
+
+                    if (i < 2) {
+                        opacity -= 1;
+                    }
+
+                    gamingopacity -= 0.3;
+
+                    i -= i / 100 + 0.01;
+
+                    if (i > 0) {
+                        techtips(i, posx, posy, opacity, gamingopacity);
+                    } else {
+                        techtips();
+                    }
+                }, 10);
+            }
+
+            techtips();
+        </script>
+    </body>
+</html>
